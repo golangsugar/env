@@ -1,4 +1,4 @@
-package handy
+package env
 
 import (
 	"fmt"
@@ -97,7 +97,7 @@ func TestEnvInt(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		if v := EnvInt(tx.envVar, tx.defaultValue); v != tx.assertion {
+		if v := AsInt(tx.envVar, tx.defaultValue); v != tx.assertion {
 			t.Logf("expected value %v, got %v\n", tx.assertion, v)
 			t.Fail()
 		}
@@ -170,7 +170,7 @@ func TestEnvLoadFromDisk(t *testing.T) {
 		{"INVALIDXX2", ""},
 	}
 
-	if err := EnvLoadFromDisk(`./env_test.txt`, true, true); err != nil {
+	if err := LoadFromDisk(`./env_test.txt`, true, true); err != nil {
 		t.Log(err)
 		t.FailNow()
 	}

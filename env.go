@@ -1,3 +1,4 @@
+// Env is a small set of routines to make easier and safer to deal with environment variables, in a more structured way
 package env
 
 import (
@@ -31,7 +32,7 @@ func Check(varName, defaultValue string, mandatory, debugPrint bool) error {
 		return nil
 	}
 
-	if defaultValue != " {
+	if defaultValue != "" {
 		if err := os.Setenv(varName, defaultValue); err != nil {
 			return nil
 		}
@@ -135,9 +136,9 @@ func AsBool(key string, defaultValue bool) bool {
 }
 
 // CheckMany Test multiple environment variables at once
-func EnvCheckMany(d...Directives) error {
-	for _, d := range Directives {
-		if err := EnvCheck(d.VarName, d.DefaultValue, d.Mandatory, d.DebugPrint); err != nil {
+func CheckMany(d ...Directives) error {
+	for _, d := range d {
+		if err := Check(d.VarName, d.DefaultValue, d.Mandatory, d.DebugPrint); err != nil {
 			return err
 		}
 	}
@@ -147,11 +148,11 @@ func EnvCheckMany(d...Directives) error {
 
 var reEnvVarRow = regexp.MustCompile(`^([A-Za-z][0-9A-Za-z_]*)=(\S+)`)
 
-// EnvLoadFromDisk loads a file from disk, containing variables written in KEY=VALUE format
+// LoadFromDisk loads a file from disk, containing variables written in KEY=VALUE format
 // fileName is the file name with complete path
 // mustHave forces an error if the file doesn't exist
 // overwriteValue when false, makes the engine skip env vars that are already definied
-func EnvLoadFromDisk(fileName string, mustHave, overwriteValues bool) error {
+func LoadFromDisk(fileName string, mustHave, overwriteValues bool) error {
 	content, err := ioutil.ReadFile(fileName)
 
 	if err != nil {
