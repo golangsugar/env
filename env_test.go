@@ -154,7 +154,7 @@ func TestEnvInt(t *testing.T) {
 //	return defaultValue
 //}
 
-func TestEnvLoadFromDisk(t *testing.T) {
+func TestLoadFromFile(t *testing.T) {
 	type test struct {
 		envVar    string
 		assertion string
@@ -170,7 +170,7 @@ func TestEnvLoadFromDisk(t *testing.T) {
 		{"INVALIDXX2", ""},
 	}
 
-	if err := LoadEnvFromFile(`./env_test.txt`, true); err != nil {
+	if err := LoadFromFile(`./env_test.txt`, true); err != nil {
 		t.Fatal(err)
 	}
 

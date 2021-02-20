@@ -12,7 +12,7 @@ const configRegex = `^([A-Z][A-Z0-9_]+)([=]{1})([[\S ]*]?)$`
 
 var rx = regexp.MustCompile(configRegex)
 
-// LoadEnvFromFile loads environment variables values from a given text file
+// LoadFromFile loads environment variables values from a given text file
 // valid lines must comply with regex ^([A-Z][A-Z0-9_]+)([=]{1})([[\S ]*]?)$
 // Examples of valid lines:
 // ABC=prd
@@ -25,7 +25,7 @@ var rx = regexp.MustCompile(configRegex)
 // Invalid/Ignored: _LETTERS=4334343434 ( has to start with a letter )
 // Invalid/Ignored: X=4334343434 ( should contain 2 or more chars )
 // Environment variables reference for curious: https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html
-func LoadEnvFromFile(configFile string, debugPrint bool) error {
+func LoadFromFile(configFile string, debugPrint bool) error {
 	f, err := os.Open(configFile)
 
 	if err != nil {
