@@ -162,23 +162,23 @@ func TestEnvLoadFromDisk(t *testing.T) {
 
 	tests := []test{
 		{"#THISIS", ""},
-		{"STARTWITH", "SPACE"},
+		{"STARTWITH", ""},
 		{"_INVALIDXX1", ""},
 		{"VALIDXX1", "NORMAL"},
-		{"lowercase", "111"},
+		{"lowercase", ""},
 		{"10INVALIDXX11", ""},
 		{"INVALIDXX2", ""},
 	}
 
-	if err := LoadFromDisk(`./env_test.txt`, true, true); err != nil {
-		t.Log(err)
-		t.FailNow()
+	if err := LoadEnvFromFile(`./env_test.txt`, true); err != nil {
+		t.Fatal(err)
 	}
 
 	for _, tx := range tests {
+		t.Log("testing var", tx.envVar)
+
 		if v := os.Getenv(tx.envVar); v != tx.assertion {
-			t.Logf("expected value %v, got %v\n", tx.assertion, v)
-			t.Fail()
+			t.Fatalf("expected value %v, got %v\n", tx.assertion, v)
 		}
 	}
 }
