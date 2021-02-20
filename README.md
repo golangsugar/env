@@ -3,7 +3,7 @@
 ##### A small set of routines to make easier and safer to deal with environment variables, in a more structured way
 
 #### Example
-```lang=go
+```lang=golang
 package main
 
 import (
