@@ -43,7 +43,7 @@ func LoadFromFile(configFile string, debugPrint bool) error {
 	for scanner.Scan() {
 		s := scanner.Text()
 
-		if s[0] == '#' || strings.TrimSpace(s) == "" { // line is commented or empty
+		if strings.TrimSpace(s) == "" || s[0] == '#' { // line is commented or empty
 			continue
 		}
 
